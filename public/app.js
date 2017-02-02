@@ -5,15 +5,55 @@ var stylesArray = [
   {
     featureType: 'all',
     stylers: [
-      { hue: '#00ffe6' },
-      { saturation: -20 }
+      { hue: '#01F8FC' },
+      { saturation: -5 },
+      { lightness: -20}
+    ]
+  },
+  {
+    featureType: 'water',
+    stylers: [
+      { hue: '#035EFE' },
+      { saturation: -20 },
+      { lightness: 50 }
+    ]
+  },
+  {
+    featureType: 'natural',
+    elementType: 'labels',
+    stylers: [
+      { visibility: 'off' }
+    ]
+  },
+  {
+    featureType: 'landscape',
+    elementType: 'labels',
+    stylers: [
+      { visibility: 'off' }
+    ]
+  },
+  {
+    featureType: 'administrative.province',
+    elementType: 'labels',
+    stylers: [
+      { lightness: 70 },
+      { saturation: 100 },
+      { visibility: 'on' }
+    ]
+  },
+  {
+    featureType: 'administrative.locality',
+    elementType: 'labels',
+    stylers: [
+      { lightness: 10 },
+      { visibility: 'on' }
     ]
   },
   {
     featureType: 'road',
     elementType: 'geometry',
     stylers: [
-      { lightness: 100 },
+      { lightness: 70 },
       { visibility: 'simplified' }
     ]
   },
@@ -27,7 +67,7 @@ var stylesArray = [
 ];
 
 var mapOptions = {
-  zoom: 6,
+  zoom: 7,
   styles: stylesArray,
   center: new google.maps.LatLng(47.015177, -119.790176),
   mapTypeId: google.maps.MapTypeId.STREET,
@@ -92,7 +132,7 @@ latlongs.forEach((val,i) => {
 // school_name:38,
 // school_type:39,
 // school_year:40}
-  var infowindow = new google.maps.InfoWindow({ //38 - school name, 1 - city, 2 - county, 4 - grades, 37 - school district 39 - public or private
+  var infowindow = new google.maps.InfoWindow ({ //38 - school name, 1 - city, 2 - county, 4 - grades, 37 - school district 39 - public or private
     content: `<dl><dt>School: </dt><dd> ${schools[i][38]}, ${schools[i][1]}</dd><dt>Grades:</dt> <dd>${schools[i][4]}</dd><dt>Number of students:</dt><dd>${schools[i][36]}</dd><dt>% of students with all immunizations:</dt> <dd>${schools[i][21]*100}</dd><dt>% with medical exemption: </dt> <dd>${schools[i][31]*100}</dd><dt>% with other exemption:</dt> <dd>${(schools[i][32]+schools[i][33]+schools[i][34])*100}</dd></dl>`,
     maxWidth: 500
   });
@@ -102,3 +142,7 @@ latlongs.forEach((val,i) => {
     openWindow = infowindow;
   });
 })
+
+schools.forEach((val, i) => {
+  if (val.length !== 41) console.log(i, 'length: ', val.length);
+});
