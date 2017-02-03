@@ -86,11 +86,26 @@ google.maps.event.addDomListener(window, 'resize', function() {
 });
 
 latlongs.forEach((val,i) => {
-  var marker = new google.maps.Marker({
-    position: {lat: val[1], lng: val[0]},
-    map: map,
-  });
-
+  if (val[39] === 'N') {
+      var marker = new google.maps.Marker({
+        position: {lat: val[1], lng: val[0]},
+        icon: 'http://maps.google.com/mapfiles/ms/icons/red-dot.png',
+        map: map,
+      });
+  } else if (val[39] === 'PUBLIC SCHOOL') {
+      var marker = new google.maps.Marker({
+        position: {lat: val[1], lng: val[0]},
+        icon: 'http://maps.google.com/mapfiles/ms/icons/green-dot.png',
+        map: map,
+      });
+    }
+    else {
+      var marker = new google.maps.Marker({
+        position: {lat: val[1], lng: val[0]},
+        icon: 'http://maps.google.com/mapfiles/ms/icons/yellow-dot.png',
+        map: map,
+      });
+    }
 // address:0,
 // city:1,
 // county:2,
@@ -133,7 +148,7 @@ latlongs.forEach((val,i) => {
 // school_type:39,
 // school_year:40}
   var infowindow = new google.maps.InfoWindow ({ //38 - school name, 1 - city, 2 - county, 4 - grades, 37 - school district 39 - public or private
-    content: `<dl><dt>School: </dt><dd> ${schools[i][38]}, ${schools[i][1]}</dd><dt>Grades:</dt> <dd>${schools[i][4]}</dd><dt>Number of students:</dt><dd>${schools[i][36]}</dd><dt>% of students with all immunizations:</dt> <dd>${schools[i][21]*100}</dd><dt>% with medical exemption: </dt> <dd>${schools[i][31]*100}</dd><dt>% with other exemption:</dt> <dd>${(schools[i][32]+schools[i][33]+schools[i][34])*100}</dd></dl>`,
+    content: `<dl><dt>School: </dt><dd> ${schools[i][38]}, ${schools[i][1]}</dd><dt>Grades:</dt> <dd>${schools[i][4]}</dd><dt>Number of students:</dt><dd>${schools[i][36]}</dd><dt>% of students with all immunizations:</dt> <dd>${(schools[i][21]*100).toFixed(2)}</dd><dt>% with medical exemption: </dt> <dd>${(schools[i][31]*100).toFixed(2)}</dd><dt>% with other exemption:</dt> <dd>${((schools[i][32]+schools[i][33]+schools[i][34])*100).toFixed(2)}</dd></dl>`,
     maxWidth: 500
   });
   marker.addListener('click', function() {
@@ -141,8 +156,4 @@ latlongs.forEach((val,i) => {
     infowindow.open(map, marker);
     openWindow = infowindow;
   });
-})
-
-schools.forEach((val, i) => {
-  if (val.length !== 41) console.log(i, 'length: ', val.length);
 });
