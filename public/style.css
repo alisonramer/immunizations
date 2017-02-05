@@ -25,3 +25,19 @@ dd {
   margin-left: 0.5em;
   color: darkred;
 }
+
+#legend {
+  font-family: Arial, sans-serif;
+  font-size: 1.3em;
+  background: gray;
+  padding: 1em;
+  margin: 1em;
+  max-width: 12em;
+}
+#legend h3 {
+  font-weight: bold;
+  text-align: center;
+}
+#legend img {
+  vertical-align: middle;
+}
