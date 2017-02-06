@@ -281,7 +281,7 @@ var totalPrivExemptions = 0; //16
 
 
 schools.forEach(val => {
-  if (val[35] === 'Y') {
+  if (val[35] === 'Y' && val[36] !== 0) {
     if (val[39] === 'PUBLIC SCHOOL') {
       totalVaccinatedPubStudents += val[7];
       totalPubStudents += val[36];
@@ -331,18 +331,18 @@ var totalbelow70complianceSchools = 0;
 var totalNo6thGraders = 0;
 
 latlongs.forEach((val,i) => {
-    if (schools[i][35] === 'Y' && schools[i][36] === 0) {
-          totalNo6thGraders += 1;
-          var marker = new google.maps.Marker({
-            position: {lat: val[1], lng: val[0]},
-            icon: 'gray.png',
-            map: map,
-          });
-          var infowindow = new google.maps.InfoWindow ({ //38 - school name, 1 - city, 2 - county, 4 - grades, 37 - school district 39 - public or private
-            content: `<dl><dt>School: </dt><dd> ${schools[i][38]}, ${schools[i][1]}</dd><dt>Status:</dt> <dd>No 6th graders enrolled this year at this school.</dd></dl>`,
-            maxWidth: 500
-          });
-    } else
+  if (schools[i][35] === 'Y' && schools[i][36] === 0) {
+    totalNo6thGraders += 1;
+    var marker = new google.maps.Marker({
+      position: {lat: val[1], lng: val[0]},
+      icon: 'gray.png',
+      map: map,
+    });
+    var infowindow = new google.maps.InfoWindow ({ //38 - school name, 1 - city, 2 - county, 4 - grades, 37 - school district 39 - public or private
+      content: `<dl><dt>School: </dt><dd> ${schools[i][38]}, ${schools[i][1]}</dd><dt>Status:</dt> <dd>No 6th graders enrolled this year at this school.</dd></dl>`,
+      maxWidth: 500
+    });
+  } else
   if (schools[i][35] === 'Y' && schools[i][21] === 1) {
     total100complianceSchools += 1;
     var marker = new google.maps.Marker({
@@ -351,7 +351,7 @@ latlongs.forEach((val,i) => {
       map: map,
     });
     var infowindow = new google.maps.InfoWindow ({ //38 - school name, 1 - city, 2 - county, 4 - grades, 37 - school district 39 - public or private
-      content: `<dl><dt>School: </dt><dd> ${schools[i][38]}, ${schools[i][1]}</dd><dt>Type:</dt> <dd>${schools[i][39]}</dd><dt>Grades:</dt> <dd>${schools[i][4]}</dd><dt>Number of 6th grade students:</dt><dd>${schools[i][36]}</dd><dt>% of students with all immunizations:</dt> <dd>${(schools[i][21]*100).toFixed(2)}</dd><dt>% with medical exemption: </dt> <dd>${(schools[i][17]/schools[i][36]*100).toFixed(2)}</dd><dt>% with other exemption:</dt> <dd>${(((schools[i][18]+schools[i][19]+schools[i][20])/schools[i][36])*100).toFixed(2)}</dd></dl>`,
+      content: `<dl><dt>School: </dt><dd> ${schools[i][38]}, ${schools[i][1]}</dd><dt>Type:</dt> <dd>${schools[i][39]}</dd><dt>Grades:</dt> <dd>${schools[i][4]}</dd><dt>Number of 6th grade students:</dt><dd>${schools[i][36]}</dd><dt>% of students with all immunizations at this school:</dt> <dd>${(schools[i][21]*100).toFixed(2)}</dd><dt>% of students with all immunizations in Washington:</dt> <dd>${totalPercentVaccinated}</dd><dt>% with medical exemption: </dt> <dd>${(schools[i][17]/schools[i][36]*100).toFixed(2)}</dd><dt>% with other exemption:</dt> <dd>${(((schools[i][18]+schools[i][19]+schools[i][20])/schools[i][36])*100).toFixed(2)}</dd></dl>`,
       maxWidth: 500
     });
   } else if (schools[i][35] === 'Y' && schools[i][21] >= 0.9) {
@@ -362,7 +362,7 @@ latlongs.forEach((val,i) => {
       map: map,
     });
     var infowindow = new google.maps.InfoWindow ({ //38 - school name, 1 - city, 2 - county, 4 - grades, 37 - school district 39 - public or private
-      content: `<dl><dt>School: </dt><dd> ${schools[i][38]}, ${schools[i][1]}</dd><dt>Type:</dt> <dd>${schools[i][39]}</dd><dt>Grades:</dt> <dd>${schools[i][4]}</dd><dt>Number of 6th grade students:</dt><dd>${schools[i][36]}</dd><dt>% of students with all immunizations:</dt> <dd>${(schools[i][21]*100).toFixed(2)}</dd><dt>% with medical exemption: </dt> <dd>${(schools[i][17]/schools[i][36]*100).toFixed(2)}</dd><dt>% with other exemption:</dt> <dd>${(((schools[i][18]+schools[i][19]+schools[i][20])/schools[i][36])*100).toFixed(2)}</dd></dl>`,
+      content: `<dl><dt>School: </dt><dd> ${schools[i][38]}, ${schools[i][1]}</dd><dt>Type:</dt> <dd>${schools[i][39]}</dd><dt>Grades:</dt> <dd>${schools[i][4]}</dd><dt>Number of 6th grade students:</dt><dd>${schools[i][36]}</dd><dt>% of students with all immunizations at this school:</dt> <dd>${(schools[i][21]*100).toFixed(2)}</dd><dt>% of students with all immunizations in Washington:</dt> <dd>${totalPercentVaccinated}</dd><dt>% with medical exemption: </dt> <dd>${(schools[i][17]/schools[i][36]*100).toFixed(2)}</dd><dt>% with other exemption:</dt> <dd>${(((schools[i][18]+schools[i][19]+schools[i][20])/schools[i][36])*100).toFixed(2)}</dd></dl>`,
       maxWidth: 500
     });
   } else if (schools[i][35] === 'Y' && schools[i][21] >= 0.8) {
@@ -373,7 +373,7 @@ latlongs.forEach((val,i) => {
       map: map,
     });
     var infowindow = new google.maps.InfoWindow ({ //38 - school name, 1 - city, 2 - county, 4 - grades, 37 - school district 39 - public or private
-      content: `<dl><dt>School: </dt><dd> ${schools[i][38]}, ${schools[i][1]}</dd><dt>Type:</dt> <dd>${schools[i][39]}</dd><dt>Grades:</dt> <dd>${schools[i][4]}</dd><dt>Number of 6th grade students:</dt><dd>${schools[i][36]}</dd><dt>% of students with all immunizations:</dt> <dd>${(schools[i][21]*100).toFixed(2)}</dd><dt>% with medical exemption: </dt> <dd>${(schools[i][17]/schools[i][36]*100).toFixed(2)}</dd><dt>% with other exemption:</dt> <dd>${(((schools[i][18]+schools[i][19]+schools[i][20])/schools[i][36])*100).toFixed(2)}</dd></dl>`,
+      content: `<dl><dt>School: </dt><dd> ${schools[i][38]}, ${schools[i][1]}</dd><dt>Type:</dt> <dd>${schools[i][39]}</dd><dt>Grades:</dt> <dd>${schools[i][4]}</dd><dt>Number of 6th grade students:</dt><dd>${schools[i][36]}</dd><dt>% of students with all immunizations at this school:</dt> <dd>${(schools[i][21]*100).toFixed(2)}</dd><dt>% of students with all immunizations in Washington:</dt> <dd>${totalPercentVaccinated}</dd><dt>% with medical exemption: </dt> <dd>${(schools[i][17]/schools[i][36]*100).toFixed(2)}</dd><dt>% with other exemption:</dt> <dd>${(((schools[i][18]+schools[i][19]+schools[i][20])/schools[i][36])*100).toFixed(2)}</dd></dl>`,
       maxWidth: 500
     });
   } else if (schools[i][35] === 'Y' && schools[i][21] >= 0.7) {
@@ -384,7 +384,7 @@ latlongs.forEach((val,i) => {
       map: map,
     });
     var infowindow = new google.maps.InfoWindow ({ //38 - school name, 1 - city, 2 - county, 4 - grades, 37 - school district 39 - public or private
-      content: `<dl><dt>School: </dt><dd> ${schools[i][38]}, ${schools[i][1]}</dd><dt>Type:</dt> <dd>${schools[i][39]}</dd><dt>Grades:</dt> <dd>${schools[i][4]}</dd><dt>Number of 6th grade students:</dt><dd>${schools[i][36]}</dd><dt>% of students with all immunizations:</dt> <dd>${(schools[i][21]*100).toFixed(2)}</dd><dt>% with medical exemption: </dt> <dd>${(schools[i][17]/schools[i][36]*100).toFixed(2)}</dd><dt>% with other exemption:</dt> <dd>${(((schools[i][18]+schools[i][19]+schools[i][20])/schools[i][36])*100).toFixed(2)}</dd></dl>`,
+      content: `<dl><dt>School: </dt><dd> ${schools[i][38]}, ${schools[i][1]}</dd><dt>Type:</dt> <dd>${schools[i][39]}</dd><dt>Grades:</dt> <dd>${schools[i][4]}</dd><dt>Number of 6th grade students:</dt><dd>${schools[i][36]}</dd><dt>% of students with all immunizations at this school:</dt> <dd>${(schools[i][21]*100).toFixed(2)}</dd><dt>% of students with all immunizations in Washington:</dt> <dd>${totalPercentVaccinated}</dd><dt>% with medical exemption: </dt> <dd>${(schools[i][17]/schools[i][36]*100).toFixed(2)}</dd><dt>% with other exemption:</dt> <dd>${(((schools[i][18]+schools[i][19]+schools[i][20])/schools[i][36])*100).toFixed(2)}</dd></dl>`,
       maxWidth: 500
     });
   } else if (schools[i][35] === 'Y') {
@@ -395,7 +395,7 @@ latlongs.forEach((val,i) => {
       map: map,
     });
     var infowindow = new google.maps.InfoWindow ({ //38 - school name, 1 - city, 2 - county, 4 - grades, 37 - school district 39 - public or private
-      content: `<dl><dt>School: </dt><dd> ${schools[i][38]}, ${schools[i][1]}</dd><dt>Type:</dt> <dd>${schools[i][39]}</dd><dt>Grades:</dt> <dd>${schools[i][4]}</dd><dt>Number of 6th grade students:</dt><dd>${schools[i][36]}</dd><dt>% of students with all immunizations:</dt> <dd>${(schools[i][21]*100).toFixed(2)}</dd><dt>% with medical exemption: </dt> <dd>${(schools[i][17]/schools[i][36]*100).toFixed(2)}</dd><dt>% with other exemption:</dt> <dd>${(((schools[i][18]+schools[i][19]+schools[i][20])/schools[i][36])*100).toFixed(2)}</dd></dl>`,
+      content: `<dl><dt>School: </dt><dd> ${schools[i][38]}, ${schools[i][1]}</dd><dt>Type:</dt> <dd>${schools[i][39]}</dd><dt>Grades:</dt> <dd>${schools[i][4]}</dd><dt>Number of 6th grade students:</dt><dd>${schools[i][36]}</dd><dt>% of students with all immunizations at this school:</dt> <dd>${(schools[i][21]*100).toFixed(2)}</dd><dt>% of students with all immunizations in Washington:</dt> <dd>${totalStudentsWithVaccinations}</dd><dt>% with medical exemption: </dt> <dd>${(schools[i][17]/schools[i][36]*100).toFixed(2)}</dd><dt>% with other exemption:</dt> <dd>${(((schools[i][18]+schools[i][19]+schools[i][20])/schools[i][36])*100).toFixed(2)}</dd></dl>`,
       maxWidth: 500
     });
   } else {
@@ -460,8 +460,6 @@ map.controls[google.maps.ControlPosition.LEFT_TOP].push(legend);
 
 var percentCompliance = schools.filter(school => school[36] !== 0).map(school => school[21]).filter(val => !isNaN(val));
 var numberOfStudents = schools.filter(school => school[36] !== 0).map(school => school[36]).filter(val => !isNaN(val));
-
-
 
 function makeChart(xValue) {
   var ctx = document.getElementById('scatter').getContext('2d');
@@ -541,6 +539,44 @@ function makeChart(xValue) {
   });
 }
 
+var counties = {
+  adams: schools.filter(school => school[2] === 'ADAMS' && school[36] !== 0 && !isNaN(school[36])).map(school => [school[12],school[36]]).reduce((a,b) => [a[0] + b[0], a[1] + b[1]]).reduce((a,b) => a/b),
+  asotin: schools.filter(school => school[2] === 'ASOTIN' && school[36] !== 0 && !isNaN(school[36])).map(school => [school[12],school[36]]).reduce((a,b) => [a[0] + b[0], a[1] + b[1]]).reduce((a,b) => a/b),
+  benton: schools.filter(school => school[2] === 'BENTON' && school[36] !== 0 && !isNaN(school[36])).map(school => [school[12],school[36]]).reduce((a,b) => [a[0] + b[0], a[1] + b[1]]).reduce((a,b) => a/b),
+  chelan: schools.filter(school => school[2] === 'CHELAN' && school[36] !== 0 && !isNaN(school[36])).map(school => [school[12],school[36]]).reduce((a,b) => [a[0] + b[0], a[1] + b[1]]).reduce((a,b) => a/b),
+  clallam: schools.filter(school => school[2] === 'CLALLAM' && school[36] !== 0 && !isNaN(school[36])).map(school => [school[12],school[36]]).reduce((a,b) => [a[0] + b[0], a[1] + b[1]]).reduce((a,b) => a/b),
+  clark: schools.filter(school => school[2] === 'CLARK' && school[36] !== 0 && !isNaN(school[36])).map(school => [school[12],school[36]]).reduce((a,b) => [a[0] + b[0], a[1] + b[1]]).reduce((a,b) => a/b),
+  cowlitz: schools.filter(school => school[2] === 'COWLITZ' && school[36] !== 0 && !isNaN(school[36])).map(school => [school[12],school[36]]).reduce((a,b) => [a[0] + b[0], a[1] + b[1]]).reduce((a,b) => a/b),
+  douglas: schools.filter(school => school[2] === 'DOUGLAS' && school[36] !== 0 && !isNaN(school[36])).map(school => [school[12],school[36]]).reduce((a,b) => [a[0] + b[0], a[1] + b[1]]).reduce((a,b) => a/b),
+  franklin: schools.filter(school => school[2] === 'FRANKLIN' && school[36] !== 0 && !isNaN(school[36])).map(school => [school[12],school[36]]).reduce((a,b) => [a[0] + b[0], a[1] + b[1]]).reduce((a,b) => a/b),
+  grant: schools.filter(school => school[2] === 'GRANT' && school[36] !== 0 && !isNaN(school[36])).map(school => [school[12],school[36]]).reduce((a,b) => [a[0] + b[0], a[1] + b[1]]).reduce((a,b) => a/b),
+  graysharbor: schools.filter(school => school[2] === 'GRAYS HARBOR' && school[36] !== 0 && !isNaN(school[36])).map(school => [school[12],school[36]]).reduce((a,b) => [a[0] + b[0], a[1] + b[1]]).reduce((a,b) => a/b),
+  island: schools.filter(school => school[2] === 'ISLAND' && school[36] !== 0 && !isNaN(school[36])).map(school => [school[12],school[36]]).reduce((a,b) => [a[0] + b[0], a[1] + b[1]]).reduce((a,b) => a/b),
+  jefferson: schools.filter(school => school[2] === 'JEFFERSON' && school[36] !== 0 && !isNaN(school[36])).map(school => [school[12],school[36]]).reduce((a,b) => [a[0] + b[0], a[1] + b[1]]).reduce((a,b) => a/b),
+  king: schools.filter(school => school[2] === 'KING' && school[36] !== 0 && !isNaN(school[36])).map(school => [school[12],school[36]]).reduce((a,b) => [a[0] + b[0], a[1] + b[1]]).reduce((a,b) => a/b),
+  kitsap: schools.filter(school => school[2] === 'KITSAP' && school[36] !== 0 && !isNaN(school[36])).map(school => [school[12],school[36]]).reduce((a,b) => [a[0] + b[0], a[1] + b[1]]).reduce((a,b) => a/b),
+  kittitas: schools.filter(school => school[2] === 'KITTITAS' && school[36] !== 0 && !isNaN(school[36])).map(school => [school[12],school[36]]).reduce((a,b) => [a[0] + b[0], a[1] + b[1]]).reduce((a,b) => a/b),
+  klickitat: schools.filter(school => school[2] === 'KLICKITAT' && school[36] !== 0 && !isNaN(school[36])).map(school => [school[12],school[36]]).reduce((a,b) => [a[0] + b[0], a[1] + b[1]]).reduce((a,b) => a/b),
+  lewis: schools.filter(school => school[2] === 'LEWIS' && school[36] !== 0 && !isNaN(school[36])).map(school => [school[12],school[36]]).reduce((a,b) => [a[0] + b[0], a[1] + b[1]]).reduce((a,b) => a/b),
+  mason: schools.filter(school => school[2] === 'MASON' && school[36] !== 0 && !isNaN(school[36])).map(school => [school[12],school[36]]).reduce((a,b) => [a[0] + b[0], a[1] + b[1]]).reduce((a,b) => a/b),
+  pacific: schools.filter(school => school[2] === 'PACIFIC' && school[36] !== 0 && !isNaN(school[36])).map(school => [school[12],school[36]]).reduce((a,b) => [a[0] + b[0], a[1] + b[1]]).reduce((a,b) => a/b),
+  pendoreille: schools.filter(school => school[2] === 'PEND OREILLE' && school[36] !== 0 && !isNaN(school[36])).map(school => [school[12],school[36]]).reduce((a,b) => [a[0] + b[0], a[1] + b[1]]).reduce((a,b) => a/b),
+  pierce: schools.filter(school => school[2] === 'PIERCE' && school[36] !== 0 && !isNaN(school[36])).map(school => [school[12],school[36]]).reduce((a,b) => [a[0] + b[0], a[1] + b[1]]).reduce((a,b) => a/b),
+  skagit: schools.filter(school => school[2] === 'SKAGIT' && school[36] !== 0 && !isNaN(school[36])).map(school => [school[12],school[36]]).reduce((a,b) => [a[0] + b[0], a[1] + b[1]]).reduce((a,b) => a/b),
+  skamania: schools.filter(school => school[2] === 'SKAMANIA' && school[36] !== 0 && !isNaN(school[36])).map(school => [school[12],school[36]]).reduce((a,b) => [a[0] + b[0], a[1] + b[1]]).reduce((a,b) => a/b),
+  snoho: schools.filter(school => school[2] === 'SNOHOMISH' && school[36] !== 0 && !isNaN(school[36])).map(school => [school[12],school[36]]).reduce((a,b) => [a[0] + b[0], a[1] + b[1]]).reduce((a,b) => a/b),
+  spokane: schools.filter(school => school[2] === 'SPOKANE' && school[36] !== 0 && !isNaN(school[36])).map(school => [school[12],school[36]]).reduce((a,b) => [a[0] + b[0], a[1] + b[1]]).reduce((a,b) => a/b),
+  stevens: schools.filter(school => school[2] === 'STEVENS' && school[36] !== 0 && !isNaN(school[36])).map(school => [school[12],school[36]]).reduce((a,b) => [a[0] + b[0], a[1] + b[1]]).reduce((a,b) => a/b),
+  thurston: schools.filter(school => school[2] === 'THURSTON' && school[36] !== 0 && !isNaN(school[36])).map(school => [school[12],school[36]]).reduce((a,b) => [a[0] + b[0], a[1] + b[1]]).reduce((a,b) => a/b),
+  wallawalla: schools.filter(school => school[2] === 'WALLA WALLA' && school[36] !== 0 && !isNaN(school[36])).map(school => [school[12],school[36]]).reduce((a,b) => [a[0] + b[0], a[1] + b[1]]).reduce((a,b) => a/b),
+  whatcom: schools.filter(school => school[2] === 'WHATCOM' && school[36] !== 0 && !isNaN(school[36])).map(school => [school[12],school[36]]).reduce((a,b) => [a[0] + b[0], a[1] + b[1]]).reduce((a,b) => a/b),
+  whitman: schools.filter(school => school[2] === 'WHITMAN' && school[36] !== 0 && !isNaN(school[36])).map(school => [school[12],school[36]]).reduce((a,b) => [a[0] + b[0], a[1] + b[1]]).reduce((a,b) => a/b),
+  yakima: schools.filter(school => school[2] === 'YAKIMA' && school[36] !== 0 && !isNaN(school[36])).map(school => [school[12],school[36]]).reduce((a,b) => [a[0] + b[0], a[1] + b[1]]).reduce((a,b) => a/b)
+}
+
+for (var key in counties) console.log(key, counties[key]);
+
+
 // address:0,
 // city:1,
 // county:2,
@@ -582,3 +618,6 @@ function makeChart(xValue) {
 // school_name:38,
 // school_type:39,
 // school_year:40}
+
+
+var pertussisByCounty = [ 5.2, 4.5,2.1, 6.7, 5.5, 71.3, 23.0, 2.5, 1.2, 14.9, 13.7, 21.1, 97.2, 10.2, 36.8, 16.4, 23.8, 20.9, 6.4, 47.2, 7.6, 18.9, 4.2, 8.8, 32.2, 9.8, 2.3, 12.0, 61.0, 29.1, 4.2, 4.0 ];
