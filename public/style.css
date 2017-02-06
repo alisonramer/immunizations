@@ -29,7 +29,7 @@ dd {
 #legend {
   font-family: Arial, sans-serif;
   font-size: 1.3em;
-  background: gray;
+  background: #EAECEE;
   padding: 1em;
   margin: 1em;
   max-width: 12em;
@@ -41,3 +41,24 @@ dd {
 #legend img {
   vertical-align: middle;
 }
+
+/*canvas {
+  position: absolute;
+  width: 30;
+  height: 10;
+  z-index: 9;
+}
+
+div {
+  position: relative;
+  max-width: 60%;
+  max-height: 2%;
+}
+
+section {
+  position: relative;
+  left: 2em;
+  top: 4em;
+  text-align: center;
+  z-index: 10000000000000;
+}*/
