@@ -1,0 +1,64 @@
+#map {
+  height: 100%;
+}
+
+body, html {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+dl {
+  width: 100%;
+  padding: 0;
+  margin: 0;
+  font-size: 1em;
+}
+dt {
+  padding: 0.1em;
+  margin: 0;
+  font-weight: bold;
+  color: black;
+}
+dd {
+  padding: 0.1em;
+  margin-left: 0.5em;
+  color: darkred;
+}
+
+#legend {
+  font-family: Arial, sans-serif;
+  font-size: 1.3em;
+  background: #EAECEE;
+  padding: 1em;
+  margin: 1em;
+  max-width: 12em;
+}
+#legend h3 {
+  font-weight: bold;
+  text-align: center;
+}
+#legend img {
+  vertical-align: middle;
+}
+
+/*canvas {
+  position: absolute;
+  width: 30;
+  height: 10;
+  z-index: 9;
+}
+
+div {
+  position: relative;
+  max-width: 60%;
+  max-height: 2%;
+}
+
+section {
+  position: relative;
+  left: 2em;
+  top: 4em;
+  text-align: center;
+  z-index: 10000000000000;
+}*/

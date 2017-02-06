@@ -1,0 +1,32 @@
+{
+  "name": "immunizations",
+  "version": "1.0.0",
+  "description": "immunizations reported by WA schools for 6th graders",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/radenska/immunizations.git"
+  },
+  "keywords": [
+    "immunizations",
+    "WA",
+    "state",
+    "google",
+    "maps",
+    "API"
+  ],
+  "author": "radenska",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/radenska/immunizations/issues"
+  },
+  "homepage": "https://github.com/radenska/immunizations#readme",
+  "dependencies": {
+    "express": "^4.14.1",
+    "pg": "^6.1.2"
+  }
+}
