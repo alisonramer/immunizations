@@ -3,6 +3,7 @@
 }
 
 body, html {
+  font-family: 'Arial', sans-serif;
   height: 100%;
   margin: 0;
   padding: 0;
@@ -25,6 +26,36 @@ dd {
   margin-left: 0.5em;
   color: darkred;
 }
+header {
+  position: fixed;
+  z-index: 10;
+  margin-left: 20%;
+  margin-right: 20%;
+}
+
+header section {
+  display: inline-block;
+  margin: 1em;
+  background: #87CEEB;
+  opacity: 0.8;
+  padding: 0.3em 0.4em 0.3em 0.4em;
+  box-shadow: 0.05em 0.05em 0.05em 0.05em black;
+  cursor: pointer;
+  border-radius: 0.03em;
+}
+
+article {
+  position: fixed;
+  top: 4em;
+  z-index: 12;
+  background: #EAECEE;
+  opacity: 0.8;
+  width: 90%;
+  margin-left: 5%;
+  padding: 1%;
+  border-radius: 0.03em;
+  box-shadow: 0.05em 0.05em 0.05em 0.05em slategray;
+}
 
 #legend {
   font-family: Arial, sans-serif;
@@ -32,13 +63,13 @@ dd {
   background: #EAECEE;
   padding: 1em;
   padding-top: 0;
-  max-width: 8em;
+  max-width: 9em;
   box-shadow: 0.1em 0.1em 0.1em 0.1em black;
 }
 
 #legend h3 {
   font-weight: bold;
-  text-align: left;
+  text-align: center;
 }
 
 #legend img {
@@ -48,6 +79,14 @@ dd {
 
 #map-canvas img {
  max-width: none;
+}
+
+h4 {
+  margin-bottom: 0;
+}
+
+p {
+  margin-top: 0.2em;
 }
 
 .googft-info-window {

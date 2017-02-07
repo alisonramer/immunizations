@@ -193,7 +193,7 @@ google.maps.event.addDomListener(window, 'resize', function() {
   map.setCenter(center);
 });
 
-setPertussisLayer();
+// setPertussisLayer();
 function setPertussisLayer() {
   var layer = new google.maps.FusionTablesLayer({
     query: {
@@ -260,6 +260,9 @@ function setPertussisLayer() {
   };
 
   var legend = document.getElementById('legend');
+  var h3El = document.createElement('h3');
+  h3El.innerHTML = '2015 pertussis incidence per 100,000 persons';
+  legend.appendChild(h3El);
   for (var key in icons) {
     var type = icons[key];
     var name = type.name;
@@ -532,6 +535,9 @@ function populateSchoolMap() {
   };
 
   var legend = document.getElementById('legend');
+  var h3El = document.createElement('h3');
+  h3El.innerHTML = '2015-2016 vaccination compliance';
+  legend.appendChild(h3El);
   for (var key in icons) {
     var type = icons[key];
     var name = type.name;
