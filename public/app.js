@@ -2,6 +2,7 @@
 
 (function(mod) {
   const mapping = {};
+  mapping.markerArray = [];
 
   mapping.initBaseMap = function() {
     var stylesArray =
@@ -199,7 +200,7 @@
   mapping.initBaseMap();
 
   mapping.countymap = function () {
-    var layer = new google.maps.FusionTablesLayer({
+    mapping.layer = new google.maps.FusionTablesLayer({
       query: {
         select: 'geometry',
         from: '1_ykcTd2xatWVOZnnAPC5zYCbQPuDDHLxbaw25oA4'
@@ -227,7 +228,7 @@
       }
       ]
     });
-    layer.setMap(mapping.map);
+    mapping.layer.setMap(mapping.map);
 
     const iconsCounty = {
       noInfo: {
@@ -395,7 +396,7 @@
       {lat: 49.0037, lng: -123.3215}
     ];
 
-    const washShape = new google.maps.Polygon({
+    mapping.washShape = new google.maps.Polygon({
       paths: washCoords,
       strokeColor: '#595959',
       strokeOpacity: 0,
@@ -405,9 +406,9 @@
       cursor: 'grab'
     });
 
-    var openWindow;
+    mapping.openWindow;
 
-    washShape.setMap(mapping.map);
+    mapping.washShape.setMap(mapping.map);
 
     latlongs.forEach((val,i) => {
       if (schools[i][35] === 'Y' && schools[i][36] === 0) {
@@ -488,10 +489,11 @@
           maxWidth: 500
         });
       }
+      mapping.markerArray.push(marker);
       marker.addListener('click', function() {
-        if (openWindow) openWindow.close();
-        infowindow.open(map, marker);
-        openWindow = infowindow;
+        if (mapping.openWindow) mapping.openWindow.close();
+        infowindow.open(mapping.map, marker);
+        mapping.openWindow = infowindow;
       });
     });
     var iconsSchools = {
@@ -529,7 +531,8 @@
   }
 
   mapping.appendLegend = function(icons, headerText) {
-    var legend = document.getElementById('legend');
+    var legend = document.createElement('div');
+    legend.setAttribute('id', 'legend');
     var h3El = document.createElement('h3');
     h3El.innerHTML = headerText;
     legend.appendChild(h3El);
@@ -542,6 +545,10 @@
       legend.appendChild(div);
     }
     mapping.map.controls[google.maps.ControlPosition.LEFT_TOP].push(legend);
+  }
+
+  mapping.clearMarkers = function() {
+    mapping.markerArray.forEach(marker => marker.setMap());
   }
 
   mod.mapping = mapping;

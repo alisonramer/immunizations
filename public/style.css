@@ -68,6 +68,7 @@ article {
 }
 
 #legend {
+  position: fixed;
   font-family: Arial, sans-serif;
   font-size: 1.3em;
   background: #EAECEE;
@@ -105,7 +106,7 @@ h4 {
 }
 
 p {
-  margin-top: 0.2em;
+  margin-top: 0.5em;
 }
 
 .googft-info-window {
