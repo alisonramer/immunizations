@@ -49,12 +49,22 @@ article {
   top: 4em;
   z-index: 12;
   background: #EAECEE;
-  opacity: 0.8;
+  opacity: 0.9;
   width: 90%;
   margin-left: 5%;
   padding: 1%;
   border-radius: 0.03em;
-  box-shadow: 0.05em 0.05em 0.05em 0.05em slategray;
+  box-shadow: 0.05em 0.05em 0.05em 0.05em black;
+}
+
+.right {
+  display: inline-block;
+  margin-right: 0.3em;
+}
+
+.down {
+  display: inline-block;
+  margin-right: 0.2em;
 }
 
 #legend {
@@ -64,6 +74,7 @@ article {
   padding: 1em;
   padding-top: 0;
   max-width: 9em;
+  border-radius: 0.03em;
   box-shadow: 0.1em 0.1em 0.1em 0.1em black;
 }
 
@@ -82,7 +93,15 @@ article {
 }
 
 h4 {
-  margin-bottom: 0;
+  margin-top: 0.1em;
+  margin-bottom: 0.1em;
+  border: 0.1em solid slategray;
+  padding-bottom: 0.2em;
+  padding-left: 0.3em;
+  padding-top: 0.3em;
+  padding-right: 0.3em;
+  cursor: pointer;
+  border-radius: 0.03em;
 }
 
 p {
@@ -100,6 +119,10 @@ p {
   color: gray;
 }
 
+a, a:visited {
+  text-decoration: none;
+  color: black;
+}
 /*canvas {
   position: absolute;
   width: 30;
