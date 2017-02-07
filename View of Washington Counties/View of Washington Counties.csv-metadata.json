@@ -1,0 +1,65 @@
+{
+  "licenseType": "Unknown",
+  "exportable": true,
+  "defaultStyle": 2,
+  "dc:title": "View of Washington Counties",
+  "dc:modified": "2017-02-06T08:54:21Z",
+  "dc:identifier": "1Jtxaf7nbiaS89jdeziidU3fidmx1suD3leqKFg7o",
+  "tableSchema": {"columns": [
+    {
+      "datatype": "string",
+      "name": "col0",
+      "validateData": false,
+      "title": "County Name"
+    },
+    {
+      "datatype": "location",
+      "name": "col4",
+      "validateData": false,
+      "title": "geometry"
+    },
+    {
+      "datatype": "double",
+      "name": "col5",
+      "validateData": false,
+      "title": "value"
+    },
+    {
+      "datatype": "string",
+      "name": "col6",
+      "validateData": false,
+      "title": "GEO_ID"
+    },
+    {
+      "datatype": "double",
+      "name": "col7",
+      "validateData": false,
+      "title": "GEO_ID2"
+    },
+    {
+      "datatype": "string",
+      "name": "col8",
+      "validateData": false,
+      "title": "Geographic Name"
+    },
+    {
+      "datatype": "double",
+      "name": "col9",
+      "validateData": false,
+      "title": "STATE num"
+    },
+    {
+      "datatype": "double",
+      "name": "col10",
+      "validateData": false,
+      "title": "COUNTY num"
+    },
+    {
+      "datatype": "double",
+      "name": "col11",
+      "validateData": false,
+      "title": "FIPS formula"
+    }
+  ]},
+  "sql": "SELECT 'County Name', 'geometry', 'value', 'GEO_ID', 'GEO_ID2', 'Geographic Name', 'STATE num', 'COUNTY num', 'FIPS formula' FROM 1jd4obZvXTaoKW8efIcpAUpQUuwsv32CbIxc-Y2xh"
+}
