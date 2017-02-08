@@ -183,6 +183,7 @@
       styles: stylesArray,
       center: new google.maps.LatLng(47.015177, -119.790176),
       mapTypeId: google.maps.MapTypeId.STREET,
+      mapTypeControl: false,
       zoomControl: true,
       zoomControlOptions: {
         position: google.maps.ControlPosition.RIGHT_TOP
@@ -544,7 +545,7 @@
       div.innerHTML = '<img src="' + icon + '"> ' + name;
       legend.appendChild(div);
     }
-    mapping.map.controls[google.maps.ControlPosition.LEFT_TOP].push(legend);
+    mapping.map.controls[google.maps.ControlPosition.LEFT].push(legend);
   }
 
   mapping.clearMarkers = function() {

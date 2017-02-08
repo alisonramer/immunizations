@@ -26,7 +26,7 @@
   controller.q = function(ctx) {
     var thisaEl = 'a[href="' + ctx.path + '"]';
     if ($(thisaEl).children('.right').css('display') === 'none') {
-      location.href = '/';
+      controller.home();
     } else {
       controller.mapClean();
       controller.homeRestart();
