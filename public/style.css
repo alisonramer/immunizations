@@ -257,10 +257,8 @@ a, a:visited {
     font-size: 0.9em;
   }
 
-
   .gm-style-iw, .gm-style-iw>div, .gm-style-iw>div>div {
-    width: 250px !important;
-
+    width: 200px;
   }
 
   .googft-info-window {
@@ -269,4 +267,21 @@ a, a:visited {
     margin: 0;
   }
 
+}
+
+@media only screen and (max-width: 490px) {
+  header {
+    margin-left: 33%;
+    margin-right: 25%;
+  }
+}
+
+@media only screen and (max-width: 350px) {
+  header {
+    margin-left: 33%;
+    margin-right: 10%;
+  }
+  .gm-style-iw, .gm-style-iw>div, .gm-style-iw>div>div {
+    width: 150px;
+  }
 }
