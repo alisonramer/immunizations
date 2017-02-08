@@ -3,6 +3,7 @@
 }
 
 body, html {
+  font-family: 'Arial', sans-serif;
   height: 100%;
   margin: 0;
   padding: 0;
@@ -15,15 +16,62 @@ dl {
   font-size: 1em;
 }
 dt {
+  display: inline-block;
+  float: left;
+  clear: left;
   padding: 0.1em;
   margin: 0;
   font-weight: bold;
   color: black;
 }
 dd {
+  display: inline-block;
+  float: left;
+  clear: right;
   padding: 0.1em;
   margin-left: 0.5em;
   color: darkred;
+}
+header {
+  position: fixed;
+  z-index: 10;
+  margin-left: 20%;
+  margin-right: 20%;
+}
+
+header section {
+  display: inline-block;
+  margin: 1em;
+  background: #87CEEB;
+  opacity: 0.8;
+  padding: 0.3em 0.4em 0.3em 0.4em;
+  box-shadow: 0.05em 0.05em 0.05em 0.05em black;
+  cursor: pointer;
+  border-radius: 0.03em;
+}
+
+article {
+  position: fixed;
+  top: 4em;
+  z-index: 12;
+  background: #EAECEE;
+  opacity: 0.9;
+  width: 85%;
+  margin-left: 5%;
+  margin-right: 5%;
+  padding: 2%;
+  border-radius: 0.03em;
+  box-shadow: 0.05em 0.05em 0.05em 0.05em black;
+}
+
+.right {
+  display: inline-block;
+  margin-right: 0.3em;
+}
+
+.down {
+  display: inline-block;
+  margin-right: 0.2em;
 }
 
 #legend {
@@ -31,34 +79,138 @@ dd {
   font-size: 1.3em;
   background: #EAECEE;
   padding: 1em;
-  margin: 1em;
-  max-width: 12em;
+  padding-right: 0.5em;
+  padding-top: 0;
+  max-width: 9em;
+  border-radius: 0.03em;
+  box-shadow: 0.1em 0.1em 0.1em 0.1em black;
 }
+
 #legend h3 {
   font-weight: bold;
   text-align: center;
 }
+
 #legend img {
+  margin-right: 0.2em;
   vertical-align: middle;
 }
 
-/*canvas {
-  position: absolute;
-  width: 30;
-  height: 10;
-  z-index: 9;
+#map-canvas img {
+ max-width: none;
 }
 
-div {
-  position: relative;
-  max-width: 60%;
-  max-height: 2%;
+h4 {
+  margin-top: 0.1em;
+  margin-bottom: 0.1em;
+  border: 0.1em solid slategray;
+  padding-bottom: 0.2em;
+  padding-left: 0.3em;
+  padding-top: 0.3em;
+  padding-right: 0.3em;
+  cursor: pointer;
+  border-radius: 0.03em;
 }
 
-section {
-  position: relative;
-  left: 2em;
-  top: 4em;
-  text-align: center;
-  z-index: 10000000000000;
-}*/
+p {
+  margin-top: 0.5em;
+}
+
+.googft-info-window {
+  font-size: 1.2em;
+  font-family: 'arial', sans-serif;
+  color: blue;
+}
+
+.googft-info-window b {
+  font-weight: normal;
+  color: gray;
+}
+
+a, a:visited {
+  text-decoration: none;
+  color: black;
+}
+
+@media only screen and (max-width: 770px) {
+
+  header {
+    margin-left: 20%;
+    margin-right: 7%;
+  }
+
+  header section {
+    margin: 0.5em;
+    margin-right: 0.3em;
+    margin-left: 0.3em;
+    font-size: 1em;
+  }
+
+  #legend {
+    font-size: 1em;
+    margin-right: 0;
+    padding: 0.4em;
+    max-width: 8em;
+  }
+
+  #legend h3 {
+    margin-top: 0.4em;
+    margin-bottom: 0.4em;
+  }
+
+}
+
+@media only screen and (max-width: 500px) {
+
+  header {
+    margin-left: 33%;
+    margin-right: 10%;
+  }
+
+  header section {
+    margin: 0.2em;
+    margin-top: 0.5em;
+    margin-bottom: 0;
+    font-size: 0.8em;
+  }
+
+  #legend {
+    font-family: Arial, sans-serif;
+    font-size: 1em;
+    padding: 0.4em;
+    padding-top: 0;
+    margin-right: 0;
+    max-width: 8em;
+  }
+
+  #legend h3 {
+    margin-top: 0.3em;
+    margin-bottom: 0.3em;
+  }
+
+  #legend img {
+    margin-right: 0.1em;
+  }
+
+  article {
+    position: fixed;
+    top: 4em;
+    z-index: 12;
+    opacity: 0.9;
+    width: 96%;
+    margin-left: 1%;
+    margin-right: 1%;
+    padding: 1%;
+  }
+
+  p {
+    font-size: 0.8em;
+    margin-top: 0.2em;
+    margin-bottom: 0.2em;
+  }
+
+  h4 {
+    font-size: 0.9em;
+  }
+
+}
