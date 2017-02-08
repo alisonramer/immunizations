@@ -41,7 +41,7 @@
     $('article').fadeOut();
     if (mapping.washShape) mapping.washShape.setMap();
     if (mapping.markerArray) mapping.clearMarkers();
-    mapping.map.setCenter({lat: 47.015177, lng: -119.790176});
+    mapping.map.setCenter({lat: 47.2718, lng: -120.6738});
     mapping.countymap();
   }
 
@@ -49,7 +49,7 @@
     $('#legend').remove();
     $('article').fadeOut();
     if (mapping.layer) mapping.layer.setMap();
-    mapping.map.setCenter({lat: 47.015177, lng: -119.790176});
+    mapping.map.setCenter({lat: 47.2718, lng: -120.6738});
     mapping.schoolsmap();
   }
 
