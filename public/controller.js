@@ -12,9 +12,9 @@
   }
 
   controller.homeRestart = function() {
-    $('.right').show();
     $('.down').hide();
     $('p').hide();
+    $('.right').show();
     $('article').show();
   }
 
@@ -24,12 +24,16 @@
   }
 
   controller.q = function(ctx) {
-    controller.mapClean();
-    controller.homeRestart();
-    let thisaEl = 'a[href="' + ctx.path + '"]';
-    $(thisaEl).children('.right').hide();
-    $(thisaEl).children('.down').show();
-    $(thisaEl).parent().next().show();
+    var thisaEl = 'a[href="' + ctx.path + '"]';
+    if ($(thisaEl).children('.right').css('display') === 'none') {
+      location.href = '/';
+    } else {
+      controller.mapClean();
+      controller.homeRestart();
+      $(thisaEl).children('.right').hide();
+      $(thisaEl).children('.down').show();
+      $(thisaEl).parent().next().show();
+    }
   }
 
   controller.countymap = function() {
@@ -37,6 +41,7 @@
     $('article').fadeOut();
     if (mapping.washShape) mapping.washShape.setMap();
     if (mapping.markerArray) mapping.clearMarkers();
+    mapping.map.setCenter({lat: 47.015177, lng: -119.790176});
     mapping.countymap();
   }
 
@@ -44,6 +49,7 @@
     $('#legend').remove();
     $('article').fadeOut();
     if (mapping.layer) mapping.layer.setMap();
+    mapping.map.setCenter({lat: 47.015177, lng: -119.790176});
     mapping.schoolsmap();
   }
 
