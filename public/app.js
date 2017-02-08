@@ -272,24 +272,8 @@
   mapping.schoolsmap = function () {
     var totalPubStudents = 0;
     var totalPrivStudents = 0;
-    var totalPrivateSchools = 0;
-    var totalPublicSchools = 0;
     var totalVaccinatedPubStudents = 0;
     var totalVaccinatedPrivStudents = 0;
-    var totalPubDt = 0; //9
-    var totalPubPolio = 0; //13
-    var totalPubVaricella = 0; //14
-    var totalPubMMR = 0; //11
-    var totalPubHepB = 0; //10
-    var totalPubPertussis = 0; //12
-    var totalPrivDt = 0; //9
-    var totalPrivPolio = 0; //13
-    var totalPrivVaricella = 0; //14
-    var totalPrivMMR = 0; //11
-    var totalPrivHepB = 0; //10
-    var totalPrivPertussis = 0; //12
-    var totalPubExemptions = 0; //16
-    var totalPrivExemptions = 0; //16
 
 
     schools.forEach(val => {
@@ -297,51 +281,17 @@
         if (val[39] === 'PUBLIC SCHOOL') {
           totalVaccinatedPubStudents += val[7];
           totalPubStudents += val[36];
-          totalPubDt += parseFloat(val[9]);
-          totalPubPolio += val[13];
-          totalPubVaricella += val[14];
-          totalPubMMR += val[11];
-          totalPubHepB += val[10];
-          totalPubPertussis += val[12];
-          totalPubExemptions += val[16];
-          totalPublicSchools += 1;
         }
         else {
           totalVaccinatedPrivStudents += val[7];
           totalPrivStudents += val[36];
-          totalPrivDt += val[9];
-          totalPrivPolio += val[13];
-          totalPrivVaricella+= val[14];
-          totalPrivMMR += val[11];
-          totalPrivHepB += val[10];
-          totalPrivPertussis += val[12];
-          totalPrivExemptions += val[16];
-          totalPrivateSchools += 1;
         }
       }
     });
 
-    var totalDt = totalPubDt + totalPrivDt;
-    var totalPolio = totalPubPolio + totalPrivPolio;
-    var totalVaricella = totalPubVaricella + totalPrivVaricella;
-    var totalMMR = totalPubMMR + totalPrivMMR;
-    var totalHepB = totalPubHepB + totalPrivHepB;
-    var totalPertussis = totalPubPertussis + totalPrivPertussis;
-    var totalReportedSchools = totalPublicSchools + totalPrivateSchools;
     var totalStudents = totalPrivStudents + totalPubStudents;
     var totalStudentsWithVaccinations = totalVaccinatedPubStudents + totalVaccinatedPrivStudents;
-    var percentPubVaccinated = parseFloat((totalVaccinatedPubStudents/totalPubStudents*100).toFixed(2));
-    var percentPrivVaccinated = parseFloat((totalVaccinatedPrivStudents/totalPrivStudents*100).toFixed(2));
-    var totalUnreportedSchools = schools.length - totalReportedSchools;
     var totalPercentVaccinated = parseFloat((totalStudentsWithVaccinations/totalStudents*100).toFixed(2));
-
-    var total100complianceSchools = 0;
-    var total90complianceSchools = 0;
-    var total80complianceSchools = 0;
-    var total70complianceSchools = 0;
-    var totalbelow70complianceSchools = 0;
-    var totalNo6thGraders = 0;
-
 
     const washCoords = [
       {lat: 49.0037, lng: -123.3215},
@@ -410,92 +360,39 @@
     mapping.openWindow;
 
     mapping.washShape.setMap(mapping.map);
+    mapping.chooseContent = function (i) {
+      var no6thContent = `<dl><dt>School: </dt><dd> ${schools[i][38]}, ${schools[i][1]}</dd><dt>Status:</dt> <dd>No 6th graders enrolled this year at this school.</dd></dl>`;
+      var winContent = `<dl><dt>School: </dt><dd> ${schools[i][38]}, ${schools[i][1]}</dd><dt>Type:</dt> <dd>${schools[i][39]}</dd><dt>Grades:</dt> <dd>${schools[i][4]}</dd><dt>Number of 6th grade students:</dt><dd>${schools[i][36]}</dd><dt>% of students with all immunizations at this school:</dt> <dd>${(schools[i][21]*100).toFixed(2)}</dd><dt>% of students with all immunizations in Washington:</dt> <dd>${totalPercentVaccinated}</dd><dt>% with medical exemption: </dt> <dd>${(schools[i][17]/schools[i][36]*100).toFixed(2)}</dd><dt>% with other exemption:</dt> <dd>${(((schools[i][18]+schools[i][19]+schools[i][20])/schools[i][36])*100).toFixed(2)}</dd></dl>`;
+      var noRepContent = `<dl><dt>School: </dt><dd> ${schools[i][38]}, ${schools[i][1]}</dd><dt>Status:</dt> <dd>Did not report vaccination information.</dd></dl>`;
+      if (schools[i][35] === 'Y' && schools[i][36] === 0) return no6thContent; else if (schools[i][35] === 'N') return noRepContent; else return winContent;
+    }
 
     latlongs.forEach((val,i) => {
-      if (schools[i][35] === 'Y' && schools[i][36] === 0) {
-        totalNo6thGraders += 1;
-        var marker = new google.maps.Marker({
-          position: {lat: val[1], lng: val[0]},
-          icon: 'gray.png',
-          map: mapping.map,
-        });
-        var infowindow = new google.maps.InfoWindow ({ //38 - school name, 1 - city, 2 - county, 4 - grades, 37 - school district 39 - public or private
-          content: `<dl><dt>School: </dt><dd> ${schools[i][38]}, ${schools[i][1]}</dd><dt>Status:</dt> <dd>No 6th graders enrolled this year at this school.</dd></dl>`,
-          maxWidth: 500
-        });
-      } else
-      if (schools[i][35] === 'Y' && schools[i][21] === 1) {
-        total100complianceSchools += 1;
-        var marker = new google.maps.Marker({
-          position: {lat: val[1], lng: val[0]},
-          icon: 'dark_green.png',
-          map: mapping.map,
-        });
-        var infowindow = new google.maps.InfoWindow ({ //38 - school name, 1 - city, 2 - county, 4 - grades, 37 - school district 39 - public or private
-          content: `<dl><dt>School: </dt><dd> ${schools[i][38]}, ${schools[i][1]}</dd><dt>Type:</dt> <dd>${schools[i][39]}</dd><dt>Grades:</dt> <dd>${schools[i][4]}</dd><dt>Number of 6th grade students:</dt><dd>${schools[i][36]}</dd><dt>% of students with all immunizations at this school:</dt> <dd>${(schools[i][21]*100).toFixed(2)}</dd><dt>% of students with all immunizations in Washington:</dt> <dd>${totalPercentVaccinated}</dd><dt>% with medical exemption: </dt> <dd>${(schools[i][17]/schools[i][36]*100).toFixed(2)}</dd><dt>% with other exemption:</dt> <dd>${(((schools[i][18]+schools[i][19]+schools[i][20])/schools[i][36])*100).toFixed(2)}</dd></dl>`,
-          maxWidth: 500
-        });
-      } else if (schools[i][35] === 'Y' && schools[i][21] >= 0.9) {
-        total90complianceSchools += 1;
-        var marker = new google.maps.Marker({
-          position: {lat: val[1], lng: val[0]},
-          icon: 'purple.png',
-          map: mapping.map,
-        });
-        var infowindow = new google.maps.InfoWindow ({ //38 - school name, 1 - city, 2 - county, 4 - grades, 37 - school district 39 - public or private
-          content: `<dl><dt>School: </dt><dd> ${schools[i][38]}, ${schools[i][1]}</dd><dt>Type:</dt> <dd>${schools[i][39]}</dd><dt>Grades:</dt> <dd>${schools[i][4]}</dd><dt>Number of 6th grade students:</dt><dd>${schools[i][36]}</dd><dt>% of students with all immunizations at this school:</dt> <dd>${(schools[i][21]*100).toFixed(2)}</dd><dt>% of students with all immunizations in Washington:</dt> <dd>${totalPercentVaccinated}</dd><dt>% with medical exemption: </dt> <dd>${(schools[i][17]/schools[i][36]*100).toFixed(2)}</dd><dt>% with other exemption:</dt> <dd>${(((schools[i][18]+schools[i][19]+schools[i][20])/schools[i][36])*100).toFixed(2)}</dd></dl>`,
-          maxWidth: 500
-        });
-      } else if (schools[i][35] === 'Y' && schools[i][21] >= 0.8) {
-        total80complianceSchools += 1;
-        var marker = new google.maps.Marker({
-          position: {lat: val[1], lng: val[0]},
-          icon: 'dark_orange.png',
-          map: mapping.map,
-        });
-        var infowindow = new google.maps.InfoWindow ({ //38 - school name, 1 - city, 2 - county, 4 - grades, 37 - school district 39 - public or private
-          content: `<dl><dt>School: </dt><dd> ${schools[i][38]}, ${schools[i][1]}</dd><dt>Type:</dt> <dd>${schools[i][39]}</dd><dt>Grades:</dt> <dd>${schools[i][4]}</dd><dt>Number of 6th grade students:</dt><dd>${schools[i][36]}</dd><dt>% of students with all immunizations at this school:</dt> <dd>${(schools[i][21]*100).toFixed(2)}</dd><dt>% of students with all immunizations in Washington:</dt> <dd>${totalPercentVaccinated}</dd><dt>% with medical exemption: </dt> <dd>${(schools[i][17]/schools[i][36]*100).toFixed(2)}</dd><dt>% with other exemption:</dt> <dd>${(((schools[i][18]+schools[i][19]+schools[i][20])/schools[i][36])*100).toFixed(2)}</dd></dl>`,
-          maxWidth: 500
-        });
-      } else if (schools[i][35] === 'Y' && schools[i][21] >= 0.7) {
-        total70complianceSchools += 1;
-        var marker = new google.maps.Marker({
-          position: {lat: val[1], lng: val[0]},
-          icon: 'blue.png',
-          map: mapping.map,
-        });
-        var infowindow = new google.maps.InfoWindow ({ //38 - school name, 1 - city, 2 - county, 4 - grades, 37 - school district 39 - public or private
-          content: `<dl><dt>School: </dt><dd> ${schools[i][38]}, ${schools[i][1]}</dd><dt>Type:</dt> <dd>${schools[i][39]}</dd><dt>Grades:</dt> <dd>${schools[i][4]}</dd><dt>Number of 6th grade students:</dt><dd>${schools[i][36]}</dd><dt>% of students with all immunizations at this school:</dt> <dd>${(schools[i][21]*100).toFixed(2)}</dd><dt>% of students with all immunizations in Washington:</dt> <dd>${totalPercentVaccinated}</dd><dt>% with medical exemption: </dt> <dd>${(schools[i][17]/schools[i][36]*100).toFixed(2)}</dd><dt>% with other exemption:</dt> <dd>${(((schools[i][18]+schools[i][19]+schools[i][20])/schools[i][36])*100).toFixed(2)}</dd></dl>`,
-          maxWidth: 500
-        });
-      } else if (schools[i][35] === 'Y') {
-        totalbelow70complianceSchools += 1;
-        var marker = new google.maps.Marker({
-          position: {lat: val[1], lng: val[0]},
-          icon: 'brown.png',
-          map: mapping.map,
-        });
-        var infowindow = new google.maps.InfoWindow ({ //38 - school name, 1 - city, 2 - county, 4 - grades, 37 - school district 39 - public or private
-          content: `<dl><dt>School: </dt><dd> ${schools[i][38]}, ${schools[i][1]}</dd><dt>Type:</dt> <dd>${schools[i][39]}</dd><dt>Grades:</dt> <dd>${schools[i][4]}</dd><dt>Number of 6th grade students:</dt><dd>${schools[i][36]}</dd><dt>% of students with all immunizations at this school:</dt> <dd>${(schools[i][21]*100).toFixed(2)}</dd><dt>% of students with all immunizations in Washington:</dt> <dd>${totalPercentVaccinated}</dd><dt>% with medical exemption: </dt> <dd>${(schools[i][17]/schools[i][36]*100).toFixed(2)}</dd><dt>% with other exemption:</dt> <dd>${(((schools[i][18]+schools[i][19]+schools[i][20])/schools[i][36])*100).toFixed(2)}</dd></dl>`,
-          maxWidth: 500
-        });
-      } else {
-        var marker = new google.maps.Marker({
-          position: {lat: val[1], lng: val[0]},
-          icon: 'grey_poupon.png',
-          map: mapping.map,
-        });
-        var infowindow = new google.maps.InfoWindow ({ //38 - school name, 1 - city, 2 - county, 4 - grades, 37 - school district 39 - public or private
-          content: `<dl><dt>School: </dt><dd> ${schools[i][38]}, ${schools[i][1]}</dd><dt>Status:</dt> <dd>Did not report vaccination information.</dd></dl>`,
-          maxWidth: 500
-        });
-      }
+      var marker = new google.maps.Marker({
+        position: {lat: val[1], lng: val[0]},
+        icon: 'dark_green.png',
+        map: mapping.map,
+      });
+      var infowindow = new google.maps.InfoWindow ({ //38 - school name, 1 - city, 2 - county, 4 - grades, 37 - school district 39 - public or private
+        content: mapping.chooseContent(i),
+        maxWidth: 500
+      });
+
+      if (schools[i][35] === 'Y' && schools[i][36] === 0) marker.icon = 'gray.png';
+      else if (schools[i][35] === 'Y' && schools[i][21] === 1) marker.icon = 'dark_green.png';
+      else if (schools[i][35] === 'Y' && schools[i][21] >= 0.9) marker.icon = 'purple.png';
+      else if (schools[i][35] === 'Y' && schools[i][21] >= 0.8) marker.icon = 'dark_orange.png';
+      else if (schools[i][35] === 'Y' && schools[i][21] >= 0.7) marker.icon = 'blue.png';
+      else if (schools[i][35] === 'Y') marker.icon = 'brown.png';
+      else marker.icon = 'grey_poupon.png';
+
       mapping.markerArray.push(marker);
       marker.addListener('click', function() {
         if (mapping.openWindow) mapping.openWindow.close();
         infowindow.open(mapping.map, marker);
         mapping.openWindow = infowindow;
       });
+
     });
     var iconsSchools = {
       hundred: {
