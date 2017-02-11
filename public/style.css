@@ -134,6 +134,17 @@ a, a:visited {
   color: black;
 }
 
+span {
+  display: inline-block;
+  width: 80%;
+  height: 40%;
+  position: fixed;
+  top: 10%;
+  left: 5%;
+  z-index: 11;
+}
+
+
 @media only screen and (max-width: 770px) {
 
   header {
@@ -265,6 +276,7 @@ a, a:visited {
     font-size: 0.9em;
     padding: 0;
     margin: 0;
+    width: 200px;
   }
 
 }
@@ -282,6 +294,9 @@ a, a:visited {
     margin-right: 10%;
   }
   .gm-style-iw, .gm-style-iw>div, .gm-style-iw>div>div {
-    width: 150px;
+    width: 150px !important;
+  }
+  .googft-info-window {
+    width: 200px !important;
   }
 }

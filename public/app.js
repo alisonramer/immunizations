@@ -289,9 +289,9 @@
       }
     });
 
-    var totalStudents = totalPrivStudents + totalPubStudents;
+    mapping.totalStudents = totalPrivStudents + totalPubStudents;
     var totalStudentsWithVaccinations = totalVaccinatedPubStudents + totalVaccinatedPrivStudents;
-    var totalPercentVaccinated = parseFloat((totalStudentsWithVaccinations/totalStudents*100).toFixed(2));
+    var totalPercentVaccinated = parseFloat((totalStudentsWithVaccinations/mapping.totalStudents*100).toFixed(2));
 
     const washCoords = [
       {lat: 49.0037, lng: -123.3215},
@@ -448,6 +448,41 @@
   mapping.clearMarkers = function() {
     mapping.markerArray.forEach(marker => marker.setMap());
   }
+
+  google.charts.load('current', {packages:['corechart']});
+  google.charts.setOnLoadCallback(drawChart);
+
+  function drawChart() {
+    var oldData = google.visualization.arrayToDataTable([
+      ['type of vaccine', 'percent of students not vaccinated'],
+      ['any', 19.28],
+      ['MMR', schools.filter(school => school[5] !== 'N' && school[35] === 'Y').map(school => school[11]).reduce((a,b) => a + b)/mapping.totalStudents],
+      ['polio', schools.filter(school => school[5] !== 'N' && school[35] === 'Y').map(school => school[13]).reduce((a,b) => a + b)/mapping.totalStudents],
+      ['varicella', schools.filter(school => school[5] !== 'N' && school[35] === 'Y').map(school => school[14]).reduce((a,b) => a + b)/mapping.totalStudents],
+      ['pertussis', schools.filter(school => school[5] !== 'N' && school[35] === 'Y').map(school => school[12]).reduce((a,b) => a + b)/mapping.totalStudents],
+      ['tetanus-diptheria', schools.filter(school => school[5] !== 'N' && school[35] === 'Y').map(school => school[9]).reduce((a,b) => a + b)/mapping.totalStudents],
+      ['hepatitis b', schools.filter(school => school[5] !== 'N' && school[35] === 'Y').map(school => school[10]).reduce((a,b) => a + b)/mapping.totalStudents]
+    ]);
+
+    var newData = google.visualization.arrayToDataTable([
+      ['type of vaccine', 'percent of students not vaccinated'],
+      ['any', schools[1][15]],
+      ['MMR', schools[1][11]],
+      ['polio', schools[1][13]],
+      ['varicella', schools[1][14]],
+      ['pertussis', schools[1][12]],
+      ['tetanus-diptheria', schools[1][9]],
+      ['hepatitis b', schools[1][10]]
+    ]);
+    var colChartDiff = new google.visualization.ColumnChart(document.getElementById('colchart_diff'));
+    var options = {
+      legend: { position: 'top' },
+      backgroundColor: '#E4E4E4',
+    };
+    var diffData = colChartDiff.computeDiff(oldData, newData);
+    colChartDiff.draw(diffData, options);
+  }
+
 
   mod.mapping = mapping;
 })(window);
