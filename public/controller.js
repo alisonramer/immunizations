@@ -9,6 +9,7 @@
     if (mapping.washShape) mapping.washShape.setMap();
     if (mapping.markerArray) mapping.clearMarkers();
     $('#legend').remove();
+    $('span').fadeOut();
   }
 
   controller.homeRestart = function() {
@@ -39,6 +40,7 @@
   controller.countymap = function() {
     $('#legend').remove();
     $('article').fadeOut();
+    $('span').fadeOut();
     if (mapping.washShape) mapping.washShape.setMap();
     if (mapping.markerArray) mapping.clearMarkers();
     mapping.map.setCenter({lat: 47.2718, lng: -120.6738});
@@ -48,6 +50,7 @@
   controller.schoolsmap = function() {
     $('#legend').remove();
     $('article').fadeOut();
+    $('span').fadeOut();
     if (mapping.layer) mapping.layer.setMap();
     mapping.map.setCenter({lat: 47.2718, lng: -120.6738});
     mapping.schoolsmap();
@@ -56,6 +59,7 @@
   controller.graphs = function() {
     $('article').fadeOut();
     controller.mapClean();
+    $('span').fadeIn();
   }
 
   mod.controller = controller;
